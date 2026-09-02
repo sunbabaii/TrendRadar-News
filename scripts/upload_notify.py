@@ -17,7 +17,7 @@ SECRET_KEY = os.environ["S3_SECRET_ACCESS_KEY"]
 REGION = os.environ.get("S3_REGION", "us-east-1")
 
 MIN_SCORE = float(
-    os.environ.get("AI_NOTIFY_MIN_SCORE", "0.78")
+    os.environ.get("AI_NOTIFY_MIN_SCORE", "0.72")
 )
 
 
