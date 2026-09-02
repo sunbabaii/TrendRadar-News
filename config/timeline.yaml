@@ -1,18 +1,18 @@
-# TrendRadar 时间线配置
-# 目标：全天采集 + 全天增量推送，不做日报/晚间旧闻汇总
-# GitHub Actions 负责定时唤醒；本文件决定每次运行做什么。
+# TrendRadar 最终时间线
+# GitHub Actions 负责在每天 08:30 / 21:30 唤醒。
+# 该文件不再承担定时触发任务，只定义“每次唤醒默认做什么”。
+# 外部 upload_notify.py 负责生成跨平台 TOP 5 + AI 高价值通知。
 
 presets:
-
   realtime_incremental:
     name: "实时增量"
-    description: "全天采集；仅推送新增高价值新闻；同一事件只有出现实质变化才再次推送。"
+    description: "采集当前热榜与 RSS；使用 AI 识别高价值新增信息。外部通知脚本负责最终通知。"
 
     default:
       collect: true
       analyze: true
       ai_mode: "current"
-      push: true
+      push: false
       report_mode: "incremental"
       once:
         analyze: false
