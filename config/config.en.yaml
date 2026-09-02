@@ -1,56 +1,55 @@
-# TrendRadar 最终中文配置
-# 目标：
-# 1. 11 个已支持热榜全部采集
-# 2. AI 负责“高价值/前沿/商业机会”筛选
-# 3. upload_notify.py 负责跨平台综合 TOP 5
-# 4. GitHub Actions 负责每天 08:30 / 21:30 唤醒
-# 5. TrendRadar 自带 notification 保持开启但不配置渠道，由外部 Watcher 负责通知
+# TrendRadar Final Configuration
+# Primary goal:
+# - Crawl all currently supported hot-list platforms.
+# - Use AI for high-value/frontier/business screening.
+# - Use upload_notify.py for the guaranteed cross-platform Top 5.
+# - GitHub Actions wakes the job at 08:30 and 21:30 Asia/Shanghai.
 
 app:
-  timezone: Asia/Shanghai
+  timezone: "Asia/Shanghai"
   show_version_update: false
 
 schedule:
   enabled: false
-  preset: realtime_incremental
+  preset: "realtime_incremental"
 
 platforms:
   enabled: true
-  api_url: ''
+  api_url: ""
   sources:
-    - id: toutiao
-      name: 今日头条
-      expected_domain: toutiao.com
-    - id: baidu
-      name: 百度热搜
-      expected_domain: baidu.com
-    - id: wallstreetcn-hot
-      name: 华尔街见闻
-      expected_domain: wallstreetcn.com
-    - id: thepaper
-      name: 澎湃新闻
-      expected_domain: thepaper.cn
-    - id: bilibili-hot-search
-      name: 哔哩哔哩热搜
-      expected_domain: bilibili.com
-    - id: cls-hot
-      name: 财联社热门
-      expected_domain: cls.cn
-    - id: ifeng
-      name: 凤凰网
-      expected_domain: ifeng.com
-    - id: tieba
-      name: 百度贴吧
-      expected_domain: baidu.com
-    - id: weibo
-      name: 微博
-      expected_domain: weibo.com
-    - id: douyin
-      name: 抖音
-      expected_domain: douyin.com
-    - id: zhihu
-      name: 知乎
-      expected_domain: zhihu.com
+    - id: "toutiao"
+      name: "Toutiao"
+      expected_domain: "toutiao.com"
+    - id: "baidu"
+      name: "Baidu Hot"
+      expected_domain: "baidu.com"
+    - id: "wallstreetcn-hot"
+      name: "WallStreetCN"
+      expected_domain: "wallstreetcn.com"
+    - id: "thepaper"
+      name: "The Paper"
+      expected_domain: "thepaper.cn"
+    - id: "bilibili-hot-search"
+      name: "Bilibili Hot"
+      expected_domain: "bilibili.com"
+    - id: "cls-hot"
+      name: "CLS Hot"
+      expected_domain: "cls.cn"
+    - id: "ifeng"
+      name: "iFeng"
+      expected_domain: "ifeng.com"
+    - id: "tieba"
+      name: "Tieba"
+      expected_domain: "baidu.com"
+    - id: "weibo"
+      name: "Weibo"
+      expected_domain: "weibo.com"
+    - id: "douyin"
+      name: "Douyin"
+      expected_domain: "douyin.com"
+    - id: "zhihu"
+      name: "Zhihu"
+      expected_domain: "zhihu.com"
 
 rss:
   enabled: true
@@ -58,22 +57,22 @@ rss:
     enabled: true
     max_age_days: 1
   feeds:
-    - id: hacker-news
-      name: Hacker News
-      url: https://hnrss.org/frontpage
-    - id: yahoo-finance
-      name: Yahoo Finance
-      url: https://finance.yahoo.com/news/rssindex
+    - id: "hacker-news"
+      name: "Hacker News"
+      url: "https://hnrss.org/frontpage"
+    - id: "yahoo-finance"
+      name: "Yahoo Finance"
+      url: "https://finance.yahoo.com/news/rssindex"
 
 report:
-  mode: incremental
-  display_mode: platform
+  mode: "incremental"
+  display_mode: "platform"
   sort_by_position_first: false
   rank_threshold: 5
   max_news_per_keyword: 0
 
 filter:
-  method: ai
+  method: "ai"
   priority_sort_enabled: true
 
 ai_filter:
@@ -81,9 +80,9 @@ ai_filter:
   batch_interval: 2
   min_score: 0.52
   reclassify_threshold: 0.52
-  prompt_file: prompt.txt
-  extract_prompt_file: extract_prompt.txt
-  update_tags_prompt_file: update_tags_prompt.txt
+  prompt_file: "prompt.txt"
+  extract_prompt_file: "extract_prompt.txt"
+  update_tags_prompt_file: "update_tags_prompt.txt"
 
 display:
   region_order:
@@ -105,57 +104,57 @@ notification:
   enabled: true
   channels:
     feishu:
-      webhook_url: ''
+      webhook_url: ""
     dingtalk:
-      webhook_url: ''
+      webhook_url: ""
     wework:
-      webhook_url: ''
-      msg_type: markdown
+      webhook_url: ""
+      msg_type: "markdown"
     telegram:
-      bot_token: ''
-      chat_id: ''
+      bot_token: ""
+      chat_id: ""
     email:
-      from: ''
-      password: ''
-      to: ''
-      smtp_server: ''
-      smtp_port: ''
+      from: ""
+      password: ""
+      to: ""
+      smtp_server: ""
+      smtp_port: ""
     ntfy:
-      server_url: https://ntfy.sh
-      topic: ''
-      token: ''
+      server_url: "https://ntfy.sh"
+      topic: ""
+      token: ""
     bark:
-      url: ''
+      url: ""
     slack:
-      webhook_url: ''
+      webhook_url: ""
     generic_webhook:
-      webhook_url: ''
-      payload_template: ''
+      webhook_url: ""
+      payload_template: ""
 
 storage:
-  backend: auto
+  backend: "auto"
   formats:
     sqlite: true
     txt: false
     html: true
   local:
-    data_dir: output
+    data_dir: "output"
     retention_days: 0
   remote:
     retention_days: 0
-    endpoint_url: ''
-    bucket_name: ''
-    access_key_id: ''
-    secret_access_key: ''
-    region: ''
+    endpoint_url: ""
+    bucket_name: ""
+    access_key_id: ""
+    secret_access_key: ""
+    region: ""
   pull:
     enabled: false
     days: 3
 
 ai:
-  model: openai/agnes-2.5-flash
-  api_key: ''
-  api_base: ''
+  model: "openai/agnes-2.5-flash"
+  api_key: ""
+  api_base: ""
   timeout: 120
   temperature: 0.3
   max_tokens: 4000
@@ -164,9 +163,9 @@ ai:
 
 ai_analysis:
   enabled: true
-  language: Chinese
-  prompt_file: ai_analysis_prompt.txt
-  mode: follow_report
+  language: "English"
+  prompt_file: "ai_analysis_prompt.txt"
+  mode: "follow_report"
   max_news_for_analysis: 80
   include_rss: true
   include_standalone: false
@@ -174,8 +173,8 @@ ai_analysis:
 
 ai_translation:
   enabled: false
-  language: 中文
-  prompt_file: ai_translation_prompt.txt
+  language: "English"
+  prompt_file: "ai_translation_prompt.txt"
   batch_size: 100
   batch_interval: 2
   scope:
@@ -185,18 +184,18 @@ ai_translation:
 
 advanced:
   debug: false
-  version_check_url: https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version
-  mcp_version_check_url: https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version_mcp
-  configs_version_check_url: https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version_configs
+  version_check_url: "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version"
+  mcp_version_check_url: "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version_mcp"
+  configs_version_check_url: "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version_configs"
   crawler:
     request_interval: 2000
     use_proxy: false
-    default_proxy: ''
+    default_proxy: ""
   rss:
     request_interval: 1000
     timeout: 15
     use_proxy: false
-    proxy_url: ''
+    proxy_url: ""
   weight:
     rank: 0.6
     frequency: 0.3
@@ -209,4 +208,4 @@ advanced:
     bark: 4000
     slack: 4000
   batch_send_interval: 3
-  feishu_message_separator: '━━━━━━━━━━━━━━━━'
+  feishu_message_separator: "━━━━━━━━━━━━━━━━"
