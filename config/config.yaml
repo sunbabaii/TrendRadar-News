@@ -53,8 +53,8 @@ filter:
 ai_filter:
   batch_size: 150
   batch_interval: 2
-  min_score: 0.72
-  reclassify_threshold: 0.72
+  min_score: 0.52
+  reclassify_threshold: 0.52
   prompt_file: prompt.txt
   extract_prompt_file: extract_prompt.txt
   update_tags_prompt_file: update_tags_prompt.txt
