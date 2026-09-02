@@ -9,41 +9,46 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: Runner IP
+      - name: Runner network info
         run: |
-          echo "IPv4:"
+          echo "Runner IPv4:"
           curl -4 -s https://api.ipify.org
           echo
-          echo "IPv6:"
+
+          echo "Runner IPv6:"
           curl -6 -s --max-time 5 https://api64.ipify.org || true
           echo
 
-      - name: DNS
-        run: |
-          echo "IPv4 DNS:"
-          getent ahostsv4 s3.002259.xyz || true
-          echo
-          echo "IPv6 DNS:"
-          getent ahostsv6 s3.002259.xyz || true
+          echo "Azure region:"
+          echo "$RUNNER_ENVIRONMENT"
 
-      - name: IPv4 HTTPS test
+      - name: DNS test
         run: |
           echo "IPv4:"
+          getent ahostsv4 s3.002259.xyz || true
+
+          echo
+          echo "IPv6:"
+          getent ahostsv6 s3.002259.xyz || true
+
+      - name: HTTPS IPv4 test
+        run: |
+          echo "IPv4 HTTPS:"
           for i in 1 2 3 4 5; do
             curl -4 -sS \
               -o /dev/null \
               --connect-timeout 10 \
               -w "connect=%{time_connect}s tls=%{time_appconnect}s start=%{time_starttransfer}s total=%{time_total}s\n" \
-              https://s3.002259.xyz:29000/
+              https://s3.002259.xyz/
           done
 
-      - name: IPv6 HTTPS test
+      - name: HTTPS IPv6 test
         run: |
-          echo "IPv6:"
+          echo "IPv6 HTTPS:"
           for i in 1 2 3 4 5; do
             curl -6 -sS \
               -o /dev/null \
               --connect-timeout 10 \
               -w "connect=%{time_connect}s tls=%{time_appconnect}s start=%{time_starttransfer}s total=%{time_total}s\n" \
-              https://s3.002259.xyz:29000/ || true
+              https://s3.002259.xyz/ || true
           done
