@@ -69,7 +69,7 @@ jobs:
           S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
           S3_ENDPOINT_URL: ${{ secrets.S3_ENDPOINT_URL }}
           S3_REGION: ${{ secrets.S3_REGION }}
-          AI_NOTIFY_MIN_SCORE: "0.52"
+          AI_NOTIFY_MIN_SCORE: "0.72"
         run: uv run python scripts/upload_notify.py
 
       - name: Trigger notification check
