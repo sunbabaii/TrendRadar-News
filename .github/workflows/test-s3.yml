@@ -1,0 +1,49 @@
+name: Test GitHub to MinIO
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Runner IP
+        run: |
+          echo "IPv4:"
+          curl -4 -s https://api.ipify.org
+          echo
+          echo "IPv6:"
+          curl -6 -s --max-time 5 https://api64.ipify.org || true
+          echo
+
+      - name: DNS
+        run: |
+          echo "IPv4 DNS:"
+          getent ahostsv4 s3.002259.xyz || true
+          echo
+          echo "IPv6 DNS:"
+          getent ahostsv6 s3.002259.xyz || true
+
+      - name: IPv4 HTTPS test
+        run: |
+          echo "IPv4:"
+          for i in 1 2 3 4 5; do
+            curl -4 -sS \
+              -o /dev/null \
+              --connect-timeout 10 \
+              -w "connect=%{time_connect}s tls=%{time_appconnect}s start=%{time_starttransfer}s total=%{time_total}s\n" \
+              https://s3.002259.xyz:29000/
+          done
+
+      - name: IPv6 HTTPS test
+        run: |
+          echo "IPv6:"
+          for i in 1 2 3 4 5; do
+            curl -6 -sS \
+              -o /dev/null \
+              --connect-timeout 10 \
+              -w "connect=%{time_connect}s tls=%{time_appconnect}s start=%{time_starttransfer}s total=%{time_total}s\n" \
+              https://s3.002259.xyz:29000/ || true
+          done
