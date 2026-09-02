@@ -39,7 +39,7 @@ jobs:
               -o /dev/null \
               --connect-timeout 10 \
               -w "connect=%{time_connect}s tls=%{time_appconnect}s start=%{time_starttransfer}s total=%{time_total}s\n" \
-              https://s3.002259.xyz/
+              https://s3.002259.xyz:8443/
           done
 
       - name: HTTPS IPv6 test
@@ -50,5 +50,5 @@ jobs:
               -o /dev/null \
               --connect-timeout 10 \
               -w "connect=%{time_connect}s tls=%{time_appconnect}s start=%{time_starttransfer}s total=%{time_total}s\n" \
-              https://s3.002259.xyz/ || true
+              https://s3.002259.xyz:8443/ || true
           done
