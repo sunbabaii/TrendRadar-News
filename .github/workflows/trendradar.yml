@@ -3,6 +3,13 @@ name: Get Hot News
 on:
   workflow_dispatch:
 
+  schedule:
+    - cron: "30 8 * * *"
+      timezone: "Asia/Shanghai"
+
+    - cron: "30 21 * * *"
+      timezone: "Asia/Shanghai"
+
 jobs:
   crawl:
     runs-on: ubuntu-latest
